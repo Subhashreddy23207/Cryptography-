@@ -1,15 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-
-// Function to perform Caesar cipher given a string and a shift value
 void caesarCipher(char *str, int shift) {
     int i;
     for (i = 0; i < strlen(str); i++) {
-        // Handling uppercase letters
         if (str[i] >= 'A' && str[i] <= 'Z') {
             str[i] = 'A' + (str[i] - 'A' + shift) % 26;
         }
-        // Handling lowercase letters
         else if (str[i] >= 'a' && str[i] <= 'z') {
             str[i] = 'a' + (str[i] - 'a' + shift) % 26;
         }
@@ -22,20 +18,13 @@ int main() {
 
     printf("Enter a string: ");
     fgets(str, sizeof(str), stdin);
-
-    // Remove newline character if present
     str[strcspn(str, "\n")] = '\0';
 
-    // Performing Caesar cipher for shifts from 1 to 25
     for (shift = 1; shift <= 25; shift++) {
-        // Copying original string to another array for each shift
         char encrypted[100];
         strcpy(encrypted, str);
 
-        // Encrypting using current shift value
         caesarCipher(encrypted, shift);
-
-        // Printing the encrypted string for current shift
         printf("Shift %d: %s\n", shift, encrypted);
     }
 
