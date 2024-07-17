@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+
+#define ALPHABET_SIZE 26
+
+// Function to encrypt the plaintext using the monoalphabetic substitution cipher
+void monoalphabeticCipher(char *plaintext, char *ciphertext, char *cipherAlphabet) {
+    int i, j;
+    for (i = 0; i < strlen(plaintext); i++) {
+        if (plaintext[i] >= 'A' && plaintext[i] <= 'Z') {
+            ciphertext[i] = cipherAlphabet[plaintext[i] - 'A'];
+        } else if (plaintext[i] >= 'a' && plaintext[i] <= 'z') {
+            ciphertext[i] = cipherAlphabet[plaintext[i] - 'a'] + ('a' - 'A');
+        } else {
+            ciphertext[i] = plaintext[i]; // Non-alphabet characters remain unchanged
+        }
+    }
+    ciphertext[i] = '\0';
+}
+
+int main() {
+    char plaintext[100];
+    char ciphertext[100];
+    
+    // Define a cipher alphabet (example: a random permutation of A-Z)
+    char cipherAlphabet[ALPHABET_SIZE] = {
+        'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M'
+    };
+
+    printf("Enter a string: ");
+    fgets(plaintext, sizeof(plaintext), stdin);
+
+    // Remove newline character if present
+    plaintext[strcspn(plaintext, "\n")] = '\0';
+
+    // Encrypt the plaintext
+    monoalphabeticCipher(plaintext, ciphertext, cipherAlphabet);
+
+    // Print the ciphertext
+    printf("Ciphertext: %s\n", ciphertext);
+
+    return 0;
+}
